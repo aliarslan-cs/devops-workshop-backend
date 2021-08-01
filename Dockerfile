@@ -1,7 +1,5 @@
 FROM golang:alpine as build
 
-EXPOSE 8080
-
 RUN go env -w GO111MODULE=auto
 
 RUN apk add git
