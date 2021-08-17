@@ -17,7 +17,7 @@ type Person struct {
 }
 
 const (
-	host     = "the-db"
+	host     = "the-db-postgresql"
 	port     = 5432
 	user     = "workshop"
 	password = "workshop"
