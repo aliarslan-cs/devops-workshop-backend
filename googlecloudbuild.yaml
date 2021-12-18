@@ -58,7 +58,7 @@ steps:
 
   - id: 'Show running docker containers'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['ps']steps:
+    args: ['ps']
 
   - id: 'The Curl Test'
     name: 'gcr.io/gcp-runtimes/ubuntu_18_0_4'
