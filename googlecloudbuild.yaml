@@ -52,6 +52,10 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['images']
 
+  - id: 'Push docker image'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA', '.']
+
 substitutions:
   _DOCKERHUB_ORGANISATION: "aliarsal"
   _DOCKERHUB_USERNAME: "aliarsal"
