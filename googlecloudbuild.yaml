@@ -59,7 +59,7 @@ steps:
   - id: 'Run docker container'
     name: 'gcr.io/cloud-builders/docker'
     args:
-      - 'run',
+      - 'run'
       - '-itd'
       - '-p'
       - '8080:8080'
