@@ -9,7 +9,7 @@ steps:
   - name: ubuntu
     args:
       - echo
-      - "org: ${DOCKERHUB_ORGANISATION},    repo: ${DOCKERHUB_REPOSITORY}"
+      - "org: ${_DOCKERHUB_ORGANISATION},    repo: ${_DOCKERHUB_REPOSITORY}"
 
   # Show default substitutions, execute multi-line commands
   - name: ubuntu
@@ -34,5 +34,5 @@ steps:
         && echo "number of the pull request:                ${_PR_NUMBER}"
 
 substitutions:
-  DOCKERHUB_ORGANISATION: "aliarsal"
-  DOCKERHUB_REPOSITORY: "workshop-project-backend"
+  _DOCKERHUB_ORGANISATION: "aliarsal"
+  _DOCKERHUB_REPOSITORY: "workshop-project-backend"
