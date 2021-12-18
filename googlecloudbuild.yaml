@@ -68,7 +68,7 @@ steps:
   - id: 'The Curl Test'
     name: 'gcr.io/gcp-runtimes/ubuntu_18_0_4'
     entrypoint: 'curl'
-    args: ['-sSf http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/']
+    args: ['http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/']
 
   - id: 'Push docker image'
     name: 'gcr.io/cloud-builders/docker'
