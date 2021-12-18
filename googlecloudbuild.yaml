@@ -5,18 +5,6 @@ steps:
       - echo
       - hello world
 
-  - id: 'Show docker credentials'
-    name: ubuntu:20.04
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        echo    'dockerhub organisation:  $_DOCKERHUB_ORGANISATION' \
-        && echo 'dockerhub repository:    $_DOCKERHUB_REPOSITORY' \
-        && echo 'dockerhub username:      $_DOCKERHUB_USERNAME' \
-        && echo 'dockerhub token:         $$DOCKERHUB_TOKEN'
-    secretEnv: ['DOCKERHUB_TOKEN']
-
   - id: 'Show default substitutions'
     name: ubuntu:20.04
     entrypoint: bash
@@ -38,6 +26,18 @@ steps:
         && echo "url of head repo of PR:  ${_HEAD_REPO_URL}" \
         && echo "PR number:               ${_PR_NUMBER}"
 
+  - id: 'Show docker credentials'
+    name: ubuntu:20.04
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        echo    'dockerhub organisation:  $_DOCKERHUB_ORGANISATION' \
+        && echo 'dockerhub repository:    $_DOCKERHUB_REPOSITORY' \
+        && echo 'dockerhub username:      $_DOCKERHUB_USERNAME' \
+        && echo 'dockerhub token:         $$DOCKERHUB_TOKEN'
+    secretEnv: ['DOCKERHUB_TOKEN']
+
   - id: 'Login to dockerhub'
     name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
@@ -46,7 +46,11 @@ steps:
 
   - id: 'Build docker image'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA', '.']
+    args:
+      - build
+      - '-t'
+      - '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA'
+      - '.'
 
   - id: 'Show docker images'
     name: 'gcr.io/cloud-builders/docker'
@@ -54,25 +58,31 @@ steps:
 
   - id: 'Run docker container'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['run', '-itd', '-p', '8080:8080', '--network', 'cloudbuild', '--name', '$_DOCKERHUB_REPOSITORY-$SHORT_SHA', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA']
+    args:
+      - 'run',
+      - '-itd'
+      - '-p'
+      - '8080:8080'
+      - '--network'
+      - 'cloudbuild'
+      - '--name'
+      - '$_DOCKERHUB_REPOSITORY-$SHORT_SHA'
+      - '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA'
 
   - id: 'Show running docker containers'
     name: 'gcr.io/cloud-builders/docker'
     args: ['ps']
 
-  # - id: 'The Curl Test - using Docker'
-  #   name: 'gcr.io/cloud-builders/docker'
-  #   entrypoint: 'bash'
-  #   args: ['-c', 'docker', 'run', '-itd', '--network', 'cloudbuild', '--name', 'curl-$SHORT_SHA', 'curlimages/curl', '-sSf', 'http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/']
-
   - id: 'The Curl Test'
     name: 'gcr.io/gcp-runtimes/ubuntu_18_0_4'
     entrypoint: 'curl'
-    args: ['http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080324/']
+    args: ['http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/']
 
   - id: 'Push docker image'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA']
+    args: 
+      - push
+      - '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA'
 
 substitutions:
   _DOCKERHUB_ORGANISATION: "aliarsal"
