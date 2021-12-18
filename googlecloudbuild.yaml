@@ -31,10 +31,11 @@ steps:
         && echo "head branch of PR:       ${_HEAD_BRANCH}" \
         && echo "base branch of PR:       ${_BASE_BRANCH}" \
         && echo "url of head repo of PR:  ${_HEAD_REPO_URL}" \
-        && echo "PR number:               ${_PR_NUMBER}" \
-        && echo "_DOCKERHUB_USERNAME:     ${_DOCKERHUB_USERNAME}" \
-        && echo "DOCKERHUB_TOKEN:         ${DOCKERHUB_TOKEN}"
-    secretEnv: ['DOCKERHUB_TOKEN']
+        && echo "PR number:               ${_PR_NUMBER}"
+
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker login --username=$_DOCKERHUB_USERNAME --password=$$DOCKERHUB_TOKEN']
 
   # Docker build
   - name: 'gcr.io/cloud-builders/docker'
