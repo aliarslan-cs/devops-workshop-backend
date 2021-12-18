@@ -1,5 +1,38 @@
 steps:
+  # hello world
   - name: ubuntu
     args:
       - echo
       - hello world
+
+  # Show docker credentials
+  - name: ubuntu
+    args:
+      - echo
+      - "org: ${DOCKERHUB_ORGANISATION},    repo: ${DOCKERHUB_REPOSITORY}"
+
+  # Show default substitutions, execute multi-line commands
+  - name: ubuntu
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        echo    "ID of your Cloud project:                  ${PROJECT_ID}" \
+        && echo "ID of your build:                          ${BUILD_ID}" \
+        && echo "your project number:                       ${PROJECT_NUMBER}" \
+        && echo "the name associated with your trigger:     ${TRIGGER_NAME}" \
+        && echo "the commit ID associated with your build:  ${COMMIT_SHA}" \
+        && echo "the commit ID associated with your build:  ${REVISION_ID}" \
+        && echo "the first seven characters of COMMIT_SHA:  ${SHORT_SHA}" \
+        && echo "the name of your repository:               ${REPO_NAME}" \
+        && echo "the name of your branch:                   ${BRANCH_NAME}" \
+        && echo "the name of your tag:                      ${TAG_NAME}" \
+        && echo "the path t:                                ${TRIGGER_BUILD_CONFIG_PATH}" \
+        && echo "head branch of the pull request:           ${_HEAD_BRANCH}" \
+        && echo "base branch of the pull request:           ${_BASE_BRANCH}" \
+        && echo "url of the head repo of the pull request:  ${_HEAD_REPO_URL}" \
+        && echo "number of the pull request:                ${_PR_NUMBER}"
+
+substitutions:
+  DOCKERHUB_ORGANISATION: "aliarsal"
+  DOCKERHUB_REPOSITORY: "workshop-project-backend"
