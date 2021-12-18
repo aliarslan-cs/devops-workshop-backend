@@ -7,12 +7,14 @@ steps:
 
   - id: 'Show docker credentials'
     name: ubuntu:20.04
+    entrypoint: bash
     args:
-      - 'echo -e'
-      - 'dockerhub organisation:  $_DOCKERHUB_ORGANISATION \n'
-      - 'dockerhub repository:    $_DOCKERHUB_REPOSITORY \n'
-      - 'dockerhub username:      $_DOCKERHUB_USERNAME \n'
-      - 'dockerhub token:         $$DOCKERHUB_TOKEN'
+      - '-c'
+      - |
+        echo    'dockerhub organisation:  $_DOCKERHUB_ORGANISATION' \
+        && echo 'dockerhub repository:    $_DOCKERHUB_REPOSITORY' \
+        && echo 'dockerhub username:      $_DOCKERHUB_USERNAME' \
+        && echo 'dockerhub token:         $$DOCKERHUB_TOKEN'
     secretEnv: ['DOCKERHUB_TOKEN']
 
   - id: 'Show default substitutions'
