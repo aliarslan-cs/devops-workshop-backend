@@ -1,6 +1,7 @@
 steps:
   # hello world
   - name: ubuntu:20.04
+    id: 'hello world'
     args:
       - echo
       - hello world
@@ -30,7 +31,9 @@ steps:
         && echo "head branch of PR:       ${_HEAD_BRANCH}" \
         && echo "base branch of PR:       ${_BASE_BRANCH}" \
         && echo "url of head repo of PR:  ${_HEAD_REPO_URL}" \
-        && echo "PR number:               ${_PR_NUMBER}"
+        && echo "PR number:               ${_PR_NUMBER}" \
+        && echo "_DOCKERHUB_USERNAME:     ${_DOCKERHUB_USERNAME}" \
+        && echo "DOCKERHUB_TOKEN:         ${DOCKERHUB_TOKEN}"
 
   # Docker build
   - name: 'gcr.io/cloud-builders/docker'
@@ -42,4 +45,5 @@ steps:
 
 substitutions:
   _DOCKERHUB_ORGANISATION: "aliarsal"
+  _DOCKERHUB_USERNAME: "aliarsal"
   _DOCKERHUB_REPOSITORY: "workshop-project-backend"
