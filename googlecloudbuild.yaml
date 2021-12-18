@@ -59,14 +59,10 @@ steps:
   - id: 'Run docker container'
     name: 'gcr.io/cloud-builders/docker'
     args:
-      - 'run'
-      - '-itd'
-      - '-p'
-      - '8080:8080'
-      - '--network'
-      - 'cloudbuild'
-      - '--name'
-      - '$_DOCKERHUB_REPOSITORY-$SHORT_SHA'
+      - 'run -itd'
+      - '-p 8080:8080'
+      - '--network cloudbuild'
+      - '--name $_DOCKERHUB_REPOSITORY-$SHORT_SHA'
       - '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA'
 
   - id: 'Show running docker containers'
