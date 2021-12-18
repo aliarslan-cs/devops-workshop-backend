@@ -8,7 +8,7 @@ steps:
   - id: 'Show docker credentials'
     name: ubuntu:20.04
     args:
-      - echo -e
+      - 'echo -e'
       - 'dockerhub organisation:  $_DOCKERHUB_ORGANISATION \n'
       - 'dockerhub repository:    $_DOCKERHUB_REPOSITORY \n'
       - 'dockerhub username:      $_DOCKERHUB_USERNAME \n'
