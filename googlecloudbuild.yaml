@@ -62,7 +62,7 @@ steps:
 
   - id: 'The Curl Test - using Docker'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['run', '-itd', '--network', 'cloudbuild', '--name', 'curl-$SHORT_SHA', 'curlimages/curl', '-sSf', 'http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/', '>', '/dev/null']
+    args: ['run', '-itd', '--network', 'cloudbuild', '--name', 'curl-$SHORT_SHA', 'curlimages/curl', '-sSf', 'http://$_DOCKERHUB_REPOSITORY-$SHORT_SHA:8080/']
 
   - id: 'The Curl Test'
     name: 'gcr.io/gcp-runtimes/ubuntu_18_0_4'
