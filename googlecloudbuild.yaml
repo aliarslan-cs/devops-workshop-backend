@@ -17,21 +17,20 @@ steps:
     args:
       - '-c'
       - |
-        echo    "ID of your Cloud project:                  ${PROJECT_ID}" \
-        && echo "ID of your build:                          ${BUILD_ID}" \
-        && echo "your project number:                       ${PROJECT_NUMBER}" \
-        && echo "the name associated with your trigger:     ${TRIGGER_NAME}" \
-        && echo "the commit ID associated with your build:  ${COMMIT_SHA}" \
-        && echo "the commit ID associated with your build:  ${REVISION_ID}" \
-        && echo "the first seven characters of COMMIT_SHA:  ${SHORT_SHA}" \
-        && echo "the name of your repository:               ${REPO_NAME}" \
-        && echo "the name of your branch:                   ${BRANCH_NAME}" \
-        && echo "the name of your tag:                      ${TAG_NAME}" \
-        && echo "the path t:                                ${TRIGGER_BUILD_CONFIG_PATH}" \
-        && echo "head branch of the pull request:           ${_HEAD_BRANCH}" \
-        && echo "base branch of the pull request:           ${_BASE_BRANCH}" \
-        && echo "url of the head repo of the pull request:  ${_HEAD_REPO_URL}" \
-        && echo "number of the pull request:                ${_PR_NUMBER}"
+        echo    "ID of Cloud project:     ${PROJECT_ID}" \
+        && echo "ID of build:             ${BUILD_ID}" \
+        && echo "project number:          ${PROJECT_NUMBER}" \
+        && echo "trigger name:            ${TRIGGER_NAME}" \
+        && echo "commit ID:               ${COMMIT_SHA}" \
+        && echo "short SHA:               ${SHORT_SHA}" \
+        && echo "name of repository:      ${REPO_NAME}" \
+        && echo "name of branch:          ${BRANCH_NAME}" \
+        && echo "name of tag:             ${TAG_NAME}" \
+        && echo "build config file:       ${TRIGGER_BUILD_CONFIG_PATH}" \
+        && echo "head branch of PR:       ${_HEAD_BRANCH}" \
+        && echo "base branch of PR:       ${_BASE_BRANCH}" \
+        && echo "url of head repo of PR:  ${_HEAD_REPO_URL}" \
+        && echo "PR number:               ${_PR_NUMBER}"
 
 substitutions:
   _DOCKERHUB_ORGANISATION: "aliarsal"
