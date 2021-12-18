@@ -48,13 +48,13 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA', '.']
 
-  - id: 'show docker images'
+  - id: 'Show docker images'
     name: 'gcr.io/cloud-builders/docker'
     args: ['images']
 
   - id: 'Push docker image'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA', '.']
+    args: ['push', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA']
 
 substitutions:
   _DOCKERHUB_ORGANISATION: "aliarsal"
