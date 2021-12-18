@@ -1,19 +1,22 @@
 steps:
-  # hello world
-  - name: ubuntu:20.04
-    id: 'hello world'
+  - id: 'hello world'
+    name: ubuntu:20.04
     args:
       - echo
       - hello world
 
-  # Show docker credentials
-  - name: ubuntu:20.04
+  - id: 'Show docker credentials'
+    name: ubuntu:20.04
     args:
       - echo
-      - "org: ${_DOCKERHUB_ORGANISATION},    repo: ${_DOCKERHUB_REPOSITORY}"
+      - "dockerhub organisation:  ${_DOCKERHUB_ORGANISATION}"
+      - "dockerhub repository:    ${_DOCKERHUB_REPOSITORY}"
+      - "dockerhub username:      ${_DOCKERHUB_USERNAME}"
+      - "dockerhub token:         ${$$DOCKERHUB_TOKEN}"
+    secretEnv: ['DOCKERHUB_TOKEN']
 
-  # Show default substitutions, execute multi-line commands
-  - name: ubuntu:20.04
+  - id: 'Show default substitutions'
+    name: ubuntu:20.04
     entrypoint: bash
     args:
       - '-c'
@@ -33,17 +36,18 @@ steps:
         && echo "url of head repo of PR:  ${_HEAD_REPO_URL}" \
         && echo "PR number:               ${_PR_NUMBER}"
 
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'Login to dockerhub'
+    name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
     args: ['-c', 'docker login --username=$_DOCKERHUB_USERNAME --password=$$DOCKERHUB_TOKEN']
     secretEnv: ['DOCKERHUB_TOKEN']
 
-  # Docker build
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'Build docker image'
+    name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA', '.']
 
-  # Docker ps
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'show docker images'
+    name: 'gcr.io/cloud-builders/docker'
     args: ['images']
 
 substitutions:
