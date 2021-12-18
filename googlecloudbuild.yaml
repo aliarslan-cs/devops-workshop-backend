@@ -12,7 +12,7 @@ steps:
       - "dockerhub organisation:  ${_DOCKERHUB_ORGANISATION}"
       - "dockerhub repository:    ${_DOCKERHUB_REPOSITORY}"
       - "dockerhub username:      ${_DOCKERHUB_USERNAME}"
-      - 'dockerhub token:         $$DOCKERHUB_TOKEN''
+      - 'dockerhub token:         $$DOCKERHUB_TOKEN'
     secretEnv: ['DOCKERHUB_TOKEN']
 
   - id: 'Show default substitutions'
