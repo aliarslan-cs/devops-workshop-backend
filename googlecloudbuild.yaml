@@ -52,6 +52,19 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['images']
 
+  - id: 'Run docker container'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '-itd', '-p', '8080:8080', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA']
+
+  - id: 'Show running docker containers'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['ps']steps:
+
+  - id: 'The Curl Test'
+    name: 'gcr.io/gcp-runtimes/ubuntu_18_0_4'
+    entrypoint: 'curl'
+    args: ['http://localhost:8080/']
+
   - id: 'Push docker image'
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', '$_DOCKERHUB_ORGANISATION/$_DOCKERHUB_REPOSITORY:$SHORT_SHA']
