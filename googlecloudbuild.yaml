@@ -1,18 +1,18 @@
 steps:
   # hello world
-  - name: ubuntu
+  - name: ubuntu:20.04
     args:
       - echo
       - hello world
 
   # Show docker credentials
-  - name: ubuntu
+  - name: ubuntu:20.04
     args:
       - echo
       - "org: ${_DOCKERHUB_ORGANISATION},    repo: ${_DOCKERHUB_REPOSITORY}"
 
   # Show default substitutions, execute multi-line commands
-  - name: ubuntu
+  - name: ubuntu:20.04
     entrypoint: bash
     args:
       - '-c'
